@@ -1,0 +1,203 @@
+/* Global Styles */
+
+/* header css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    background-color: rgb(231, 235, 235); /* Change to your desired background color */
+    padding: 16px; /* Adjust padding as needed */
+    text-align: center;
+  }
+  
+  .logo {
+    height: 60px; /* Adjust logo height as needed */
+  }
+  
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 400px;
+    
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #05b2c5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    
+}
+
+h1 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    color: white;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="date"]:focus, select:focus {
+    border-color: #3490dc;
+}
+
+/* Button */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #096f81;
+    border: none;
+    border: #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+/* footer css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .footer {
+    background-color: rgb(231, 235, 235); /* Light gray background */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .logo-container {
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    height: 60px; /* Adjust as needed */
+  }
+  
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+  
+  .contact-info {
+    text-align: center;
+  }
+  
+  .startup-logo {
+    margin-bottom: 20px;
+  }
+  
+  .startup-img {
+    height: 100px; /* Adjust as needed */
+  }
+  
+  .address-info {
+    text-align: center;
+  }
+  
+  .address-info h1 {
+    color: #00bcd4; /* Cyan color */
+    margin-bottom: 10px;
+  
+  }
+  
+  .address-info ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .address-info li {
+    margin-bottom: 10px;
+  }
+  
+  @media (min-width: 1024px) {
+    .info-container {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  
+    .contact-info, .startup-logo, .address-info {
+      text-align: left;
+      width: 33%;
+    }
+  
+    .startup-logo {
+      text-align: center;
+      margin: 0;
+    }
+  }
+  
+
+  @media (min-width: 1024px) {
+    .info-container {
+      gap: 20px; /* Increased gap for larger screens */
+    }
+  }
+
+  /* large screen  margin-right: 130px; */
+  /* 1024 px to 2560px   margin-right: 130px; */
+  
+
+
+  
+  /* @media (min-width: 1366px) {
+    .address-info h1 {
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (min-width: 1600px) {
+
+   */
