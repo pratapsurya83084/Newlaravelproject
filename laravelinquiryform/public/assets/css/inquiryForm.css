@@ -2,16 +2,19 @@
 
 /* header css */
 body {
+    user-select: none;
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
   }
   
   .header {
-    background-color: rgb(231, 235, 235); /* Change to your desired background color */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Normal box shadow */
     padding: 16px; /* Adjust padding as needed */
     text-align: center;
-  }
+}
+
   
   .logo {
     height: 60px; /* Adjust logo height as needed */
@@ -77,20 +80,35 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="date"], 
 input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, input[type="date"]:focus, select:focus {
     border-color: #3490dc;
 }
-
+.btn-actnow{
+display: flex;
+justify-content: center;
+}
 /* Button */
 button {
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
-    background-color: #096f81;
+    background-color: #20aec7;
     border: none;
-    border: #ccc;
+    font-weight: bold;
+    border: 2px solid white; /* White border */
+    width:200px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    -webkit-border-radius: 2px solid white;
+    -moz-border-radius: 2px solid white;
+    -ms-border-radius: 2px solid white;
+    -o-border-radius: 2px solid white;
+}
+/* //hover button */
+
+button:hover {
+    background-color: #19aac4; /* Darker blue on hover */
 }
 
+/* Social Media Icons */
 
 /* footer css */
 
