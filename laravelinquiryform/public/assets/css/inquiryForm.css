@@ -15,6 +15,19 @@ body {
     text-align: center;
 }
 
+.heading-form {
+  font-size: x-large;
+  margin-top: 70px;
+}
+/* in large screen */
+@media (min-width: 780px) and (max-width: 2560px) {
+  body .heading-form {
+    font-size: 2.5em; /* Increases font size */
+    font-weight: bold;   /* Makes text bold */
+  }
+}
+
+
   
   .logo {
     height: 60px; /* Adjust logo height as needed */
@@ -35,7 +48,7 @@ body {
     
     margin: 50px auto;
     padding: 20px;
-    background-color: #05b2c5;
+    background-color: rgb(12, 157, 179);
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -89,7 +102,7 @@ button {
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
-    background-color: #20aec7;
+    background-color: rgb(12, 157, 179);
     border: none;
     font-weight: bold;
     border: 2px solid white; /* White border */
@@ -111,111 +124,110 @@ button:hover {
 /* Social Media Icons */
 
 /* footer css */
+/* Footer container styles */
+.footer-container {
+  background-color: #ffffff; 
+  padding: 20px;
+  /* text-align: center; */
+  margin-bottom: 0;
+}
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .footer {
-    background-color: rgb(231, 235, 235); /* Light gray background */
-    padding: 20px;
-    text-align: center;
-  }
-  
+/* Logo styles */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 60px;
+  margin-top: 20px;
+}
+
+/* Footer content styles */
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+@media (min-width: 768px) {
   .footer-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    flex-direction: row;
   }
-  
-  .logo-container {
-    margin-bottom: 20px;
+}
+
+/* Company info styles */
+.company-info {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 400;
+  /* text-align: left; */
+}
+
+.copy-info {
+  margin-top: 20px;
+  font-size: large;
+}
+
+/* Logo section styles */
+.logo-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.startup-logo {
+  height: 100px;
+}
+
+/* Contact information styles */
+.contact-info {
+  flex: 1;
+  text-align: right;
+}
+
+.contact-header {
+  color: rgb(12, 157, 179);
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+
+}
+
+@media(min-width: 766px) {
+  .contact-header{
+   text-align: end;   /* Makes text bold */
   }
-  
-  .logo {
-    height: 60px; /* Adjust as needed */
-  }
-  
-  .info-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 10px;
-  }
-  
-  .contact-info {
+}
+.section-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+ 
+}
+
+.office-info, .contact-details {
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .company-info, .contact-info {
     text-align: center;
   }
-  
-  .startup-logo {
-    margin-bottom: 20px;
-  }
-  
-  .startup-img {
-    height: 100px; /* Adjust as needed */
-  }
-  
-  .address-info {
+
+  .footer-content {
     text-align: center;
   }
-  
-  .address-info h1 {
-    color: #00bcd4; /* Cyan color */
-    margin-bottom: 10px;
-  
-  }
-  
-  .address-info ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .address-info li {
-    margin-bottom: 10px;
-  }
-  
-  @media (min-width: 1024px) {
-    .info-container {
-      flex-direction: row;
-      justify-content: space-between;
-    }
-  
-    .contact-info, .startup-logo, .address-info {
-      text-align: left;
-      width: 33%;
-    }
-  
-    .startup-logo {
-      text-align: center;
-      margin: 0;
-    }
-  }
-  
-
-  @media (min-width: 1024px) {
-    .info-container {
-      gap: 20px; /* Increased gap for larger screens */
-    }
-  }
-
-  /* large screen  margin-right: 130px; */
-  /* 1024 px to 2560px   margin-right: 130px; */
-  
-
-
-  
-  /* @media (min-width: 1366px) {
-    .address-info h1 {
-      margin-bottom: 20px;
-    }
-  }
-  
-  @media (min-width: 1600px) {
-
-   */
+}
