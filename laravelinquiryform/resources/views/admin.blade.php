@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
 </head>
 
 <body class="font-sans bg-gray-100">
@@ -26,18 +25,19 @@
                 <div class="flex flex-col space-y-2 p-4">
                     <a href="#" id="dashboardLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Dashboard</a>
                     <a href="#" id="usersLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Users</a>
-                    <button id="updatePasswordLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Update Password</button>
+                    <!-- Button to trigger modal -->
+                    <button id="updatePasswordLink" class="block w-full text-left cursor-pointer p-2 rounded-md text-white hover:bg-indigo-600">
+                        Update Password
+                    </button>
                     <button class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Logout</button>
                 </div>
-
             </div>
 
             <!-- Main Content Area -->
             <div class="flex-1 flex flex-col overflow-hidden ml-0 md:ml-64">
                 <!-- Top Navbar -->
-                <header class="flex md:hidden bg-indigo-600 text-white flex justify-between items-center shadow-md px-6 py-4">
+                <header class="md:hidden bg-indigo-600 text-white flex justify-between items-center shadow-md px-6 py-4">
                     <div class="text-2xl font-semibold">Dashboard</div>
-
                     <button id="sidebarToggle" class="md:hidden focus:outline-none">
                         <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="menuIconPath" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -46,13 +46,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-
                 </header>
 
                 <!-- Main Content -->
                 <main class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50">
                     <!-- Dashboard View -->
-                    <div id="dashboardView" class="hidden">
+                    <div id="dashboardView" class="">
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                             <div class="bg-white shadow rounded-lg p-4">
                                 <h3 class="text-lg font-semibold mb-2">Total Users</h3>
@@ -109,23 +108,26 @@
 
                     <!-- Update Password View -->
                     <div id="updatePasswordView" class="hidden">
-                        <div class="bg-white shadow rounded-lg p-4">
-                            <h3 class="text-lg font-semibold mb-4">Update Password</h3>
-                            <form id="updatePasswordForm" action="#" method="POST">
-                                <div class="mb-4">
-                                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                    <input type="email" id="email" name="email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+                        <!-- Modal (Initially hidden) -->
+                        <div id="updatePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                                <h2 class="text-2xl font-bold mb-4">Update Password</h2>
+
+                                <div class="flex flex-col mb-4">
+                                    <label class="text-gray-700">New Password</label>
+                                    <input type="password" id="newPassword" class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter new password" required />
                                 </div>
-                                <div class="mb-4">
-                                    <label for="currentPassword" class="block text-sm font-medium text-gray-700">Current Password</label>
-                                    <input type="password" id="currentPassword" name="currentPassword" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
+
+                                <div class="flex flex-col mb-4">
+                                    <label class="text-gray-700">Confirm Password</label>
+                                    <input type="password" id="confirmPassword" class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Confirm password" required />
                                 </div>
-                                <div class="mb-4">
-                                    <label for="newPassword" class="block text-sm font-medium text-gray-700">New Password</label>
-                                    <input type="password" id="newPassword" name="newPassword" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" required>
-                                </div>
-                                <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">Update Password</button>
-                            </form>
+
+                                <div id="errorMessage" class="text-red-500 hidden mb-4">Passwords do not match!</div>
+
+                                <button id="submitPassword" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update Password</button>
+                                <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">Cancel</button>
+                            </div>
                         </div>
                     </div>
                 </main>
@@ -133,56 +135,68 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const dashboardLink = document.getElementById('dashboardLink');
-            const usersLink = document.getElementById('usersLink');
-            const updatePasswordLink = document.getElementById('updatePasswordLink');
+        // Toggle Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const menuIcon = document.getElementById('menuIcon');
+        const closeIcon = document.getElementById('closeIcon');
+        sidebarToggle.addEventListener('click', () => {
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                sidebar.classList.remove('translate-x-0');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        });
 
-            const dashboardView = document.getElementById('dashboardView');
-            const usersView = document.getElementById('usersView');
-            const updatePasswordView = document.getElementById('updatePasswordView');
+        // Handle Navigation
+        document.getElementById('dashboardLink').addEventListener('click', () => {
+            document.getElementById('dashboardView').classList.remove('hidden');
+            document.getElementById('usersView').classList.add('hidden');
+            document.getElementById('updatePasswordView').classList.add('hidden');
+        });
 
-            dashboardLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                dashboardView.classList.remove('hidden');
-                usersView.classList.add('hidden');
-                updatePasswordView.classList.add('hidden');
-            });
+        document.getElementById('usersLink').addEventListener('click', () => {
+            document.getElementById('dashboardView').classList.add('hidden');
+            document.getElementById('usersView').classList.remove('hidden');
+            document.getElementById('updatePasswordView').classList.add('hidden');
+        });
 
-            usersLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                dashboardView.classList.add('hidden');
-                usersView.classList.remove('hidden');
-                updatePasswordView.classList.add('hidden');
-            });
+        document.getElementById('updatePasswordLink').addEventListener('click', () => {
+            document.getElementById('dashboardView').classList.add('hidden');
+            document.getElementById('usersView').classList.add('hidden');
+            document.getElementById('updatePasswordView').classList.remove('hidden');
+            document.getElementById('updatePasswordModal').classList.remove('hidden');
+        });
 
-            updatePasswordLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                dashboardView.classList.add('hidden');
-                usersView.classList.add('hidden');
-                updatePasswordView.classList.remove('hidden');
-            });
+        // Handle Modal
+        const modal = document.getElementById('updatePasswordModal');
+        const closeModal = document.getElementById('closeModal');
+        closeModal.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
 
-            // Sidebar toggle functionality
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            const menuIcon = document.getElementById('menuIcon');
-            const closeIcon = document.getElementById('closeIcon');
+        const submitPassword = document.getElementById('submitPassword');
+        submitPassword.addEventListener('click', () => {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
 
-            sidebarToggle.addEventListener('click', function() {
-                if (sidebar.classList.contains('-translate-x-full')) {
-                    sidebar.classList.remove('-translate-x-full');
-                    sidebar.classList.add('translate-x-0');
-                    menuIcon.classList.add('hidden');
-                    closeIcon.classList.remove('hidden');
-                } else {
-                    sidebar.classList.add('-translate-x-full');
-                    sidebar.classList.remove('translate-x-0');
-                    menuIcon.classList.remove('hidden');
-                    closeIcon.classList.add('hidden');
-                }
-            });
+            if (newPassword === confirmPassword) {
+                errorMessage.classList.add('hidden');
+                // Proceed with updating password logic here
+                alert('Password updated successfully!');
+                modal.classList.add('hidden');
+            } else {
+                errorMessage.classList.remove('hidden');
+            }
         });
     </script>
 </body>

@@ -12,14 +12,14 @@
 </head>
 
 <body>
-  <div>
-
+  <div class="select-none">
+<!-- header -->
     <div class='bg-gray-100 shadow-lg pb-2'>
       <div class='flex justify-between items-center'>
 
         <div class='flex justify-center items-center w-full'>
           <img
-            class='h-20 p-2'
+            class='h-20 p- m-2'
             src="\assets\images\logo.png"
             alt="Logo" />
         </div>
@@ -31,104 +31,108 @@
       <h2 class="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-bold mb-5 sm:mb-20 md:mb-20 text-center">
         Your Success Story Starts With BISJHINTUS Group
       </h2>
-      <form
-        method="POST"
-        class="max-w-lg mx-auto bg-[#009bb5] p-8 rounded-lg shadow-md">
-        <!-- Your form fields -->
-        <div class="mb-6">
-          <label for="course" class="block text-white font-bold mb-2">Your Desired Course / Training</label>
-          <input
-            id="course"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Course You Are Signing Up For"
-            required />
-        </div>
 
-        <div class="mb-6">
-          <label for="course_enroll_date" class="block text-white font-bold mb-2">Course Journey Begins With Us</label>
-          <input
-            id="course_enroll_date"
-            type="date"
-            class="w-full p-3 border border-gray-300 rounded"
-            required />
-        </div>
 
-        <div class="mb-6">
-          <label for="username" class="block text-white font-bold mb-2">Your Full Name</label>
-          <input
-            id="username"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your username"
-            required />
-        </div>
+      <!-- inquiry form -->
+<form
+  id="inquiryForm"
+  class="max-w-lg mx-auto bg-[#009bb5] p-8 rounded-lg shadow-md">
+  <!-- Your form fields -->
+  <div class="mb-6">
+    <label for="course" class="block text-white font-bold mb-2">Your Desired Course / Training</label>
+    <input
+      id="course"
+      type="text"
+      class="w-full p-3 border border-gray-300 rounded"
+      placeholder="Course You Are Signing Up For"
+      required />
+  </div>
 
-        <div class="mb-6">
-          <label for="email" class="block text-white font-bold mb-2">Your Email</label>
-          <input
-            id="email"
-            type="email"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your email"
-            required />
-        </div>
+  <div class="mb-6">
+    <label for="course_enroll_date" class="block text-white font-bold mb-2">Course Journey Begins With Us</label>
+    <input
+      id="course_enroll_date"
+      type="date"
+      class="w-full p-3 border border-gray-300 rounded"
+      required />
+  </div>
 
-        <div class="mb-6">
-          <label for="phone_number" class="block text-white font-bold mb-2">Your Phone Number</label>
-          <input
-            id="phone_number"
-            type="tel"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your phone number"
-            pattern="\d{10}"
-            inputmode="numeric"
-            title="Phone number must be 10 digits"
-            required />
-        </div>
+  <div class="mb-6">
+    <label for="username" class="block text-white font-bold mb-2">Your Full Name</label>
+    <input
+      id="username"
+      type="text"
+      class="w-full p-3 border border-gray-300 rounded"
+      placeholder="Enter your username"
+      required />
+  </div>
 
-        <div class="mb-6">
-          <label for="country" class="block text-white font-bold mb-2">Your Country</label>
-          <input
-            id="country"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your country"
-            required />
-        </div>
+  <div class="mb-6">
+    <label for="email" class="block text-white font-bold mb-2">Your Email</label>
+    <input
+      id="email"
+      type="email"
+      class="w-full p-3 border border-gray-300 rounded"
+      placeholder="Enter your email"
+      required />
+  </div>
 
-        <div class="mb-6">
-          <label for="job" class="block text-white font-bold mb-2">Your Job Role</label>
-          <input
-            id="job"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your job role"
-            required />
-        </div>
+  <div class="mb-6">
+    <label for="phone_number" class="block text-white font-bold mb-2">Your Phone Number</label>
+    <input
+      id="phone_number"
+      type="tel"
+      class="w-full p-3 border border-gray-300 rounded"
+      placeholder="Enter your phone number"
+      pattern="\d{10}"
+      inputmode="numeric"
+      title="Phone number must be 10 digits"
+      required />
+  </div>
 
-        <!-- Service Selection -->
-        <div class="mb-6">
-          <label for="service" class="block text-white font-bold mb-2">Select Your Service</label>
-          <select
-            name="service"
-            id="service"
-            required
-            class="w-full p-2 border border-gray-300 rounded text-gray-700">
-            <option value="" class="text-gray-400">Select a service</option>
-            <option value="BuisnessToCustomer">Business to Customer</option>
-            <option value="BuisnessToBuisness">Business to Business</option>
-          </select>
-        </div>
+  <div class="mb-6">
+    <label for="country" class="block text-white font-bold mb-2">Your Country</label>
+    <input
+      id="country"
+      type="text"
+      class="w-full p-3 border border-gray-300 rounded"
+      placeholder="Enter your country"
+      required />
+  </div>
 
-        <div class="text-center">
-          <button
-            type="submit"
-            class="w-full text-xl bg-[#009bb5] border text-white shadow-xl font-bold py-3 px-10 rounded">
-            ACT NOW
-          </button>
-        </div>
-      </form>
+  <div class="mb-6">
+    <label for="job" class="block text-white font-bold mb-2">Your Job Role</label>
+    <input
+      id="job"
+      type="text"
+      class="w-full p-3 border border-gray-300 rounded"
+      placeholder="Enter your job role"
+      required />
+  </div>
+
+  <!-- Service Selection -->
+  <div class="mb-6">
+    <label for="service" class="block text-white font-bold mb-2">Select Your Service</label>
+    <select
+      name="service"
+      id="service"
+      required
+      class="w-full p-2 border border-gray-300 rounded text-gray-700">
+      <option value="" class="text-gray-400">Select a service</option>
+      <option value="BuisnessToCustomer">Business to Customer</option>
+      <option value="BuisnessToBuisness">Business to Business</option>
+    </select>
+  </div>
+
+  <div class="text-center">
+    <button
+      type="submit"
+      class="w-full text-xl bg-[#009bb5] border text-white shadow-xl font-bold py-3 px-10 rounded">
+      ACT NOW
+    </button>
+  </div>
+</form>
+
     </div>
 
 
@@ -156,7 +160,7 @@
 
 
       <!-- {/* hidden lg: */} -->
-       <div class="flex flex-col  justify-center"> 
+      <div class="flex flex-col  justify-center">
         <div class="flex flex-col md:flex-row justify-center r space-y-8 md:space-y-0 md:space-x-1 max-w-6xl w-full mx-auto p-10 ">
           <!-- {/* Contact info */} -->
           <div class="text-center md:text-left md:mb-4 mb-  text-lg font-semibold w-full md:w-1/3">
@@ -210,4 +214,41 @@
     </footer>
 </body>
 
+
+<script>
+  //click the form then store in db and navigate 
+  document.getElementById('inquiryForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+    // Redirect to the success page directly
+    window.location.href = '/successSubmit';
+
+
+     // Get form values
+     const course = document.getElementById('course').value;
+    const courseEnrollDate = document.getElementById('course_enroll_date').value;
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const phoneNumber = document.getElementById('phone_number').value;
+    const country = document.getElementById('country').value;
+    const job = document.getElementById('job').value;
+    const service = document.getElementById('service').value;
+
+    // Log values to the console
+    console.log('Course:', course);
+    console.log('Course Enroll Date:', courseEnrollDate);
+    console.log('Username:', username);
+    console.log('Email:', email);
+    console.log('Phone Number:', phoneNumber);
+    console.log('Country:', country);
+    console.log('Job Role:', job);
+    console.log('Service:', service);
+
+// this above 8 values store in db post request
+
+
+
+
+
+  });
+</script>
 </html>

@@ -18,3 +18,8 @@ Route::get('/admin/updatepassword', function () {
 Route::get('/admin', function () {
     return view('admin');
 });
+
+// after submit the form then naviagte this route
+Route::get('/successSubmit', function () {
+    return view('successSubmitForm');
+});
