@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>BISJHINTUS SERVICE INQUIRY FORM</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="font-sans bg-gray-100">
+<body class="font-sans bg-gray-100 select-none">
     <div class="flex flex-col h-screen">
         <!-- Logo -->
         <div class="flex justify-center py-2">
@@ -23,12 +22,14 @@
                 </div>
                 <!-- admin list name -->
                 <div class="flex flex-col space-y-2 p-4">
-                    <a href="#" id="dashboardLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Dashboard</a>
-                    <a href="#" id="usersLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Users</a>
-                    <!-- Button to trigger modal -->
+                    <button id="dashboardLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Dashboard</button>
+                    <button id="usersLink" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Users</button>
+                    <!-- update password button to trigger modal -->
                     <button id="updatePasswordLink" class="block w-full text-left cursor-pointer p-2 rounded-md text-white hover:bg-indigo-600">
                         Update Password
                     </button>
+
+
                     <button class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Logout</button>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                                 <h3 class="text-lg font-semibold">Users List</h3>
                                 <button class="bg-green-600 py-2 px-4 rounded text-white font-bold">Download Pdf</button>
                             </div>
-
+                            <!-- user show in table body -->
                             <div class="overflow-x-auto">
                                 <table class="min-w-full bg-white shadow-md rounded-lg">
                                     <thead>
@@ -107,29 +108,42 @@
                     </div>
 
                     <!-- Update Password View -->
-                    <div id="updatePasswordView" class="hidden">
-                        <!-- Modal (Initially hidden) -->
-                        <div id="updatePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-                            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-                                <h2 class="text-2xl font-bold mb-4">Update Password</h2>
+                    <div id="updatePasswordView">
+   
+   
+                    <!-- Modal (Initially hidden) -->
+                    <div id="updatePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+        <h2 class="text-2xl font-bold mb-4 text-center">Update Password</h2>
+        <!-- email -->
+        <div class="flex flex-col mb-4">
+            <label class="text-gray-700">Email</label>
+            <input type="email" id="email" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your email" />
+        </div>
+        <!-- current password -->
+        <div class="flex flex-col mb-4">
+            <label class="text-gray-700">Current Password</label>
+            <input type="password" id="currentPassword" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter current password" />
+        </div>
+        <!-- new password -->
+        <div class="flex flex-col mb-4">
+            <label class="text-gray-700">New Password</label>
+            <input type="password" id="newPassword" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter new password" />
+        </div>
 
-                                <div class="flex flex-col mb-4">
-                                    <label class="text-gray-700">New Password</label>
-                                    <input type="password" id="newPassword" class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter new password" required />
-                                </div>
+        <div id="errorMessage" class="text-red-500 hidden mb-4">All fields are required!</div>
+        <div class="flex justify-end">
+            <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">Cancel</button>
+            <button id="submitPassword" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Update Password</button>
+        </div>
+    </div>
 
-                                <div class="flex flex-col mb-4">
-                                    <label class="text-gray-700">Confirm Password</label>
-                                    <input type="password" id="confirmPassword" class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Confirm password" required />
-                                </div>
+</div>
 
-                                <div id="errorMessage" class="text-red-500 hidden mb-4">Passwords do not match!</div>
 
-                                <button id="submitPassword" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Update Password</button>
-                                <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">Cancel</button>
-                            </div>
-                        </div>
-                    </div>
+
+</div>
+
                 </main>
             </div>
         </div>
@@ -137,7 +151,7 @@
 
     <!-- Scripts -->
     <script>
-        // Toggle Sidebar
+        // Toggle left Sidebar 
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
         const menuIcon = document.getElementById('menuIcon');
@@ -170,34 +184,60 @@
         });
 
         document.getElementById('updatePasswordLink').addEventListener('click', () => {
-            document.getElementById('dashboardView').classList.add('hidden');
-            document.getElementById('usersView').classList.add('hidden');
+            // document.getElementById('dashboardView').classList.add('hidden');
+            // document.getElementById('usersView').classList.add('hidden');
             document.getElementById('updatePasswordView').classList.remove('hidden');
             document.getElementById('updatePasswordModal').classList.remove('hidden');
         });
 
-        // Handle Modal
-        const modal = document.getElementById('updatePasswordModal');
-        const closeModal = document.getElementById('closeModal');
-        closeModal.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
 
-        const submitPassword = document.getElementById('submitPassword');
-        submitPassword.addEventListener('click', () => {
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorMessage = document.getElementById('errorMessage');
 
-            if (newPassword === confirmPassword) {
-                errorMessage.classList.add('hidden');
-                // Proceed with updating password logic here
-                alert('Password updated successfully!');
-                modal.classList.add('hidden');
-            } else {
-                errorMessage.classList.remove('hidden');
-            }
-        });
+
+        // modal js Get elements of modal form and validate
+        const emailInput = document.getElementById("email");
+    const currentPasswordInput = document.getElementById("currentPassword");
+    const newPasswordInput = document.getElementById("newPassword");
+    const submitButton = document.getElementById("submitPassword");
+    const errorMessage = document.getElementById("errorMessage");
+    const updatePasswordLink = document.getElementById("updatePasswordLink");
+    const updatePasswordModal = document.getElementById("updatePasswordModal");
+    const closeModalButton = document.getElementById("closeModal");
+
+    // Show modal when "Update Password" button is clicked
+    updatePasswordLink.addEventListener("click", () => {
+        updatePasswordModal.classList.remove("hidden");
+    });
+
+    // Close modal when "Cancel" button is clicked
+    closeModalButton.addEventListener("click", () => {
+        updatePasswordModal.classList.add("hidden");
+    });
+
+    // Add event listener to the submit button
+    submitButton.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent form submission
+
+        // Get values
+        const email = emailInput.value.trim();
+        const currentPassword = currentPasswordInput.value.trim();
+        const newPassword = newPasswordInput.value.trim();
+
+        // Validate fields
+        if (!email || !currentPassword || !newPassword) {
+            // Show error message
+            errorMessage.classList.remove("hidden");
+            errorMessage.textContent = "All fields are required!";
+            return;
+        }
+
+        // Hide error message if validation passes
+        errorMessage.classList.add("hidden");
+
+        // Print values in the console
+        console.log("Email:", email);
+        console.log("Current Password:", currentPassword);
+        console.log("New Password:", newPassword);
+    });
     </script>
 </body>
 
