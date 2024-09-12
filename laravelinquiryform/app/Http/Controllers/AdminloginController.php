@@ -25,28 +25,30 @@ class AdminloginController extends Controller
     {
         // Validate form data
         $request->validate([
-
-            'email' => 'required|email|unique:adminlogin',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
+    
         try {
-            // register user here
-            $new_user = new Adminlogin();
-
-            $new_user->email = $request->email;
-
-            $new_user->password = Hash::make($request->password);
-            $new_user->save();
-
-            // Generate a session token if needed (example)
-            $token = bin2hex(random_bytes(16));
-            session(['login_token' => $token]);
-
-            return redirect('/admin')->with('success', 'User Added Successfully');
+            // Check if the user exists in the adminlogin table
+            $user = Adminlogin::where('email', $request->email)->first();
+    
+            // If user doesn't exist or password doesn't match, redirect back with an error
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return redirect('/login')->with('fail', 'Invalid email or password');
+            }
+    
+            // If credentials are correct, generate a token value
+            // If credentials are correct, set a session variable
+            return redirect('/admin')->with('status', ['success' => true, 'message' => 'Login successful']);
+            $arr=array("status"=>true,"message"=>"success Login");
         } catch (\Exception $e) {
-            return redirect('/')->with('fail', $e->getMessage());
+            // If there is any exception, redirect back with the error message
+            return redirect('/login')->with('fail', $e->getMessage());
         }
+
     }
+    
 
 
 
