@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminloginController;
 use App\Http\Controllers\RegisterUserController;
-
 use App\Models\RegisterUser;
 use Illuminate\Support\Facades\Route;
 
@@ -10,49 +9,40 @@ Route::get('/', function () {
     return view('inquiryform');
 });
 
-Route::get('/login', function () {
-    return view('loginform');
-});
-// login post method
-// Route::post('/add', [AdminloginController::class, 'add'])->name('form');
 
-// Route::post('/add', [AdminloginController::class, 'add'])->name('form');
+// post route for inquiryform
+Route::post('/inquiryform',[RegisterUserController::class,'inquiryPost'])->name('inquiry.post');
 
 
-
-
-
-
-Route::get('/admin/updatepassword', function () {
-    return view('createNewPassword');
-});
-
-
-Route::get('/admin', function () {
-    return view('admin');
-});
-
-// after submit the form then naviagte this route
-Route::get('/successSubmit', function () {
-    return view('successSubmitForm');
-});
-
-
-
-// ----------------Routes of User Inquiry----------
-// Route::post('/register',[RegisterUserController::class,'registerUserInquiry']); 
-
-
-// Route::post('/regi','auth.regi')->name('regi');
-Route::post('/register',[RegisterUserController::class,'register'])->name('regi');
+// // after submit the form then naviagte this route
+Route::get('/successSubmit',[RegisterUserController::class,'successSubmit'])->name("successSubmit");
+ //work below route
+// Route::get('/successSubmit', function () {
+//     return view('successSubmitForm');
+// });
+// ->name("successSubmit");
 
 
 
 
+Route::get('/login',[AdminloginController::class,'adminlogin'])
+->name("login");
 
-//below code correct post  request work
-Route::get('/add', function () {
-    return view('stud');
-});
+Route::post('/login',[AdminloginController::class,'loginpost'])
+->name('login.post');   //action="{{route('login.post')}}"  name use in loginadmin.blade.php file action.
 
-Route::post('/add', [AdminloginController::class, 'add'])->name('form');
+// create new adminpass route
+Route::get('/admin/updatepassword',[AdminloginController::class,'createNewpassword']);
+Route::post('/admin/updatepassword',[AdminloginController::class,'createNewpasswordpost'])
+->name('createNewpassword.post');   //action="{{route('login.post')}}"  name use in loginadmin.blade.php file action.
+
+// create a get route to /admin
+Route::get('/admin',[AdminloginController::class,'adminshow'])->name('admin');
+
+
+
+
+// Route::get('/admin', function () {
+//     return view('admin');
+// });
+

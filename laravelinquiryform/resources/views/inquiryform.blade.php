@@ -36,104 +36,57 @@
 
 
       <!-- ----------------inquiry form  ------------------------------------>
-      <form action="/regi" method="POST" id="inquiryForm" class="max-w-lg mx-auto bg-[#009bb5] p-8 rounded-lg shadow-md">
-        @csrf
-        <!-- Your form fields -->
-        <div class="mb-6">
-          <label for="course" class="block text-white font-bold mb-2">Your Desired Course / Training</label>
-          <input
-            id="course"
-            type="text"
-            value="{{ csrf_token() }}"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Course You Are Signing Up For"
-            required />
-        </div>
+      <form action="{{ route('inquiry.post') }}" method="POST" id="inquiryForm" class="max-w-lg mx-auto bg-[#009bb5] p-8 rounded-lg shadow-md">
+    @csrf
+    <div class="mb-6">
+        <label for="courseName" class="block text-white font-bold mb-2">Your Desired Course / Training</label>
+        <input name="courseName" id="course" type="text" class="w-full p-3 border border-gray-300 rounded" placeholder="Course You Are Signing Up For" required />
+    </div>
 
-        <div class="mb-6">
-          <label for="course_enroll_date" class="block text-white font-bold mb-2">Course Journey Begins With Us</label>
-          <input
-            id="course_enroll_date"
-            type="date"
-            class="w-full p-3 border border-gray-300 rounded"
-            required />
-        </div>
+    <div class="mb-6">
+        <label for="course_Enroll_Date" class="block text-white font-bold mb-2">Course Journey Begins With Us</label>
+        <input name="course_Enroll_Date" id="course_enroll_date" type="date" class="w-full p-3 border border-gray-300 rounded" required />
+    </div>
 
-        <div class="mb-6">
-          <label for="username" class="block text-white font-bold mb-2">Your Full Name</label>
-          <input
-            id="username"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your username"
-            required />
-        </div>
+    <div class="mb-6">
+        <label for="username" class="block text-white font-bold mb-2">Your Full Name</label>
+        <input name="username" id="username" type="text" class="w-full p-3 border border-gray-300 rounded" placeholder="Enter your username" required />
+    </div>
 
-        <div class="mb-6">
-          <label for="email" class="block text-white font-bold mb-2">Your Email</label>
-          <input
-            id="email"
-            type="email"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your email"
-            required />
-        </div>
+    <div class="mb-6">
+        <label for="email" class="block text-white font-bold mb-2">Your Email</label>
+        <input name="email" id="email" type="email" class="w-full p-3 border border-gray-300 rounded" placeholder="Enter your email" required />
+    </div>
 
-        <div class="mb-6">
-          <label for="phone_number" class="block text-white font-bold mb-2">Your Phone Number</label>
-          <input
-            id="phone_number"
-            type="tel"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your phone number"
-            pattern="\d{10}"
-            inputmode="numeric"
-            title="Phone number must be 10 digits"
-            required />
-        </div>
+    <div class="mb-6">
+        <label for="phone_Number" class="block text-white font-bold mb-2">Your Phone Number</label>
+        <input name="phone_Number" id="phone_Number" type="tel" class="w-full p-3 border border-gray-300 rounded" placeholder="Enter your phone number" pattern="\d{10}" inputmode="numeric" title="Phone number must be 10 digits" required />
+    </div>
 
-        <div class="mb-6">
-          <label for="country" class="block text-white font-bold mb-2">Your Country</label>
-          <input
-            id="country"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your country"
-            required />
-        </div>
+    <div class="mb-6">
+        <label for="country" class="block text-white font-bold mb-2">Your Country</label>
+        <input name="country" id="country" type="text" class="w-full p-3 border border-gray-300 rounded" placeholder="Enter your country" required />
+    </div>
 
-        <div class="mb-6">
-          <label for="job" class="block text-white font-bold mb-2">Your Job Role</label>
-          <input
-            id="job"
-            type="text"
-            class="w-full p-3 border border-gray-300 rounded"
-            placeholder="Enter your job role"
-            required />
-        </div>
+    <div class="mb-6">
+        <label for="job_role" class="block text-white font-bold mb-2">Your Job Role</label>
+        <input name="job_role" id="job_role" type="text" class="w-full p-3 border border-gray-300 rounded" placeholder="Enter your job role" required />
+    </div>
 
-        <!-- Service Selection -->
-        <div class="mb-6">
-          <label for="service" class="block text-white font-bold mb-2">Select Your Service</label>
-          <select
-            name="service"
-            id="service"
-            required
-            class="w-full p-2 border border-gray-300 rounded text-gray-700">
+    <div class="mb-6">
+        <label for="service" class="block text-white font-bold mb-2">Select Your Service</label>
+        <select name="service" id="service" required class="w-full p-2 border border-gray-300 rounded text-gray-700">
             <option value="" class="text-gray-400">Select a service</option>
-            <option value="BuisnessToCustomer">Business to Customer</option>
-            <option value="BuisnessToBuisness">Business to Business</option>
-          </select>
-        </div>
+            <option value="BusinessToCustomer">Business to Customer</option>
+            <option value="BusinessToBusiness">Business to Business</option>
+        </select>
+    </div>
 
-        <div class="text-center">
-          <button
-            type="submit"
-            class="w-full text-xl bg-[#009bb5] border text-white shadow-xl font-bold py-3 px-10 rounded">
-            ACT NOW
-          </button>
-        </div>
-      </form>
+    <div class="text-center">
+        <button type="submit" class="w-full text-xl bg-[#009bb5] border text-white shadow-xl font-bold py-3 px-10 rounded">ACT NOW</button>
+    </div>
+</form>
+
 
     </div>
 
@@ -219,59 +172,8 @@
 
 <script>
 
-document.getElementById('inquiryForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
 
-    const courseName=document.getElementById('course').value
-         const   course_Enroll_Date= document.getElementById('course_enroll_date').value
-         const   username= document.getElementById('username').value
-          const  email= document.getElementById('email').value
-          const  phone_Number= document.getElementById('phone_number').value
-          const  country= document.getElementById('country').value
-           const job_role= document.getElementById('job').value
-           const service= document.getElementById('service').value
-console.log(courseName,course,username,email,phone_Number,job_role,service,country,course_Enroll_Date);
 
-   const res= fetch('regi',{ // Ensure correct syntax here
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          courseName,
-           course_Enroll_Date,
-            username,
-            email,
-            phone_Number,
-            country,
-            job_role,
-            service
-        }),
-      
-        
-    })
-    console.log(res);
-    window.location.href = '/successSubmit'
-    // .then(response => {
-    //     if (!response.ok) {
-    //         return response.text(); // Read response as text if not OK
-    //     }
-    //     return response; // Parse response as JSON if OK
-    // })
-    // .then(data => {
-    //     console.log(data);
-    //     if (data.success) {
-    //         window.location.href = '/successSubmit'; // Redirect on success
-    //     } else if (data.errors) {
-    //         // Handle validation errors
-    //         console.error('Validation errors:', data.errors);
-    //     }
-    // })
-    // .catch(error => {
-    //     console.error('Error:', error);
-    // });
-});
 
 
 </script>

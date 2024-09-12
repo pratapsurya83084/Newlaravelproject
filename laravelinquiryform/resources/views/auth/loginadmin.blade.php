@@ -16,14 +16,23 @@
   <div class="mb-4">
     <img src="\assets\images\logo.png" alt="Logo" />
   </div>
-  
-  <!-- Login form -->
-  <form  action="add" method="post" id="loginForm" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
+  @if(session()->has("success"))
+  <div class="alert alert-success">
+    {{ session()->get("success") }}
+  </div>
+  @endif
+  @if(session()->has("error"))
+  <div class="alert alert-success">
+    {{ session()->get("error") }}
+  </div>
+  @endif
+ <!-- Login form -->
+<form action="{{route('login.post')}}}" method="POST" id="loginForm" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
   @csrf
   <h1 class="text-center text-3xl font-bold text-gray-600">Login</h1>
 
   <div class="flex flex-col">
-    <label class="text-gray-700 font-medium">Email</label>
+    <label for="email" class="text-gray-700 font-medium">Email</label>
     <input
       id="email"
       name="email"
@@ -32,10 +41,11 @@
       class="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
       required
     />
+    
   </div>
 
   <div class="flex flex-col">
-    <label class="text-gray-700 font-medium">Password</label>
+    <label for="password" class="text-gray-700 font-medium">Password</label>
     <input
       id="password"
       name="password"
@@ -53,6 +63,8 @@
     Login
   </button>
 </form>
+
+
 
 </div>
 
