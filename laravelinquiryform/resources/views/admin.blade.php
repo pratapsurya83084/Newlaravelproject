@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,8 +31,8 @@
                         Update Password
                     </button>
 
-
-                    <button class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Logout</button>
+                    <!-- logout button -->
+                    <a href="{{route('logoutadmin')}}" class="block w-full text-left cursor-pointer p-2 rounded-md hover:bg-indigo-600">Logout</a>
                 </div>
             </div>
 
@@ -62,6 +63,11 @@
                         </div>
                     </div>
 
+                    @if ($users->isEmpty())
+                    <p>No users found.</p>
+                    @else
+                    {{ $users[0]['courseName']}}
+                    @endif
                     <!-- Users View -->
                     <div id="usersView" class="hidden">
                         <div class="bg-white shadow rounded-lg p-4">
@@ -87,21 +93,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+                                        @foreach ($users as $user)
                                         <tr class="hover:bg-gray-100">
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">1</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">JohnDoe</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">johndoe@example.com</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">2024-09-10</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">React Course</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">1234567890</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Developer</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">USA</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">Premium</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['id']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['username	']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['email']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['course_Enroll_Date']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['courseName']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['phone_Number']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['job_role']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['country']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['service']}}</td>
                                             <td class="text-center px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                                 <button class="bg-red-500 p-1 rounded px-3 text-white">Delete</button>
                                             </td>
                                         </tr>
-                                        <!-- Add more rows as needed -->
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -110,40 +118,47 @@
 
                     <!-- Update Password View -->
                     <div id="updatePasswordView">
-   
-   
-                    <!-- Modal (Initially hidden) -->
-                    <div id="updatePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
-        <h2 class="text-2xl font-bold mb-4 text-center">Update Password</h2>
-        <!-- email -->
-        <div class="flex flex-col mb-4">
-            <label class="text-gray-700">Email</label>
-            <input type="email" id="email" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your email" />
-        </div>
-        <!-- current password -->
-        <div class="flex flex-col mb-4">
-            <label class="text-gray-700">Current Password</label>
-            <input type="password" id="currentPassword" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter current password" />
-        </div>
-        <!-- new password -->
-        <div class="flex flex-col mb-4">
-            <label class="text-gray-700">New Password</label>
-            <input type="password" id="newPassword" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter new password" />
-        </div>
 
-        <div id="errorMessage" class="text-red-500 hidden mb-4">All fields are required!</div>
-        <div class="flex justify-end">
-            <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">Cancel</button>
-            <button id="submitPassword" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Update Password</button>
-        </div>
-    </div>
+                        <form
+                            action="{{ route('updateadminPassword')}}"
+                            method="post">
+                            @csrf
+                            <!-- Modal (Initially hidden) -->
+                            <div id="updatePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+                                <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                                    <h2 class="text-2xl font-bold mb-4 text-center">Update Password</h2>
+                                    <!-- email -->
+                                    <div class="flex flex-col mb-4">
+                                        <label class="text-gray-700">Email</label>
+                                        <input
+                                            name="email"
+                                            type="email" id="email" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter your email" />
+                                    </div>
+                                    <!-- current password -->
+                                    <div class="flex flex-col mb-4">
+                                        <label class="text-gray-700">Current Password</label>
+                                        <input name="currentPassword" type="password" id="currentPassword" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter current password" />
+                                    </div>
+                                    <!-- new password -->
+                                    <div class="flex flex-col mb-4">
+                                        <label class="text-gray-700">New Password</label>
+                                        <input
+                                            name="newPassword"
+                                            type="password" id="newPassword" required class="mt-1 p-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter new password" />
+                                    </div>
 
-</div>
+                                    <div id="errorMessage" class="text-red-500 hidden mb-4">All fields are required!</div>
+                                    <div class="flex justify-end">
+                                        <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">Cancel</button>
+                                        <input type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">
+                                    </div>
+                                </div>
 
+                            </div>
 
+                        </form>
 
-</div>
+                    </div>
 
                 </main>
             </div>
@@ -196,49 +211,49 @@
 
         // modal js Get elements of modal form and validate
         const emailInput = document.getElementById("email");
-    const currentPasswordInput = document.getElementById("currentPassword");
-    const newPasswordInput = document.getElementById("newPassword");
-    const submitButton = document.getElementById("submitPassword");
-    const errorMessage = document.getElementById("errorMessage");
-    const updatePasswordLink = document.getElementById("updatePasswordLink");
-    const updatePasswordModal = document.getElementById("updatePasswordModal");
-    const closeModalButton = document.getElementById("closeModal");
+        const currentPasswordInput = document.getElementById("currentPassword");
+        const newPasswordInput = document.getElementById("newPassword");
+        const submitButton = document.getElementById("submitPassword");
+        const errorMessage = document.getElementById("errorMessage");
+        const updatePasswordLink = document.getElementById("updatePasswordLink");
+        const updatePasswordModal = document.getElementById("updatePasswordModal");
+        const closeModalButton = document.getElementById("closeModal");
 
-    // Show modal when "Update Password" button is clicked
-    updatePasswordLink.addEventListener("click", () => {
-        updatePasswordModal.classList.remove("hidden");
-    });
+        // Show modal when "Update Password" button is clicked
+        updatePasswordLink.addEventListener("click", () => {
+            updatePasswordModal.classList.remove("hidden");
+        });
 
-    // Close modal when "Cancel" button is clicked
-    closeModalButton.addEventListener("click", () => {
-        updatePasswordModal.classList.add("hidden");
-    });
+        // Close modal when "Cancel" button is clicked
+        closeModalButton.addEventListener("click", () => {
+            updatePasswordModal.classList.add("hidden");
+        });
 
-    // Add event listener to the submit button
-    submitButton.addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent form submission
+        // Add event listener to the submit button
+        submitButton.addEventListener("click", (e) => {
+            e.preventDefault(); // Prevent form submission
 
-        // Get values
-        const email = emailInput.value.trim();
-        const currentPassword = currentPasswordInput.value.trim();
-        const newPassword = newPasswordInput.value.trim();
+            // Get values
+            const email = emailInput.value.trim();
+            const currentPassword = currentPasswordInput.value.trim();
+            const newPassword = newPasswordInput.value.trim();
 
-        // Validate fields
-        if (!email || !currentPassword || !newPassword) {
-            // Show error message
-            errorMessage.classList.remove("hidden");
-            errorMessage.textContent = "All fields are required!";
-            return;
-        }
+            // Validate fields
+            if (!email || !currentPassword || !newPassword) {
+                // Show error message
+                errorMessage.classList.remove("hidden");
+                errorMessage.textContent = "All fields are required!";
+                return;
+            }
 
-        // Hide error message if validation passes
-        errorMessage.classList.add("hidden");
+            // Hide error message if validation passes
+            errorMessage.classList.add("hidden");
 
-        // Print values in the console
-        console.log("Email:", email);
-        console.log("Current Password:", currentPassword);
-        console.log("New Password:", newPassword);
-    });
+            // Print values in the console
+            console.log("Email:", email);
+            console.log("Current Password:", currentPassword);
+            console.log("New Password:", newPassword);
+        });
     </script>
 </body>
 

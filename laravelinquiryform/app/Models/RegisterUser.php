@@ -10,8 +10,8 @@ class RegisterUser extends Model
     use HasFactory;
 
 
-    protected $table='registerusers';
-    
+    protected $table = 'registerusers';
+
     protected $fillable = [
         'courseName',
         'course_Enroll_Date',
@@ -22,4 +22,10 @@ class RegisterUser extends Model
         'job_role',
         'service'
     ];
+
+    public function get_all_data()
+    {
+        $data = self::all();
+        return !empty($data) ? (array)$data : [];
+    }
 }

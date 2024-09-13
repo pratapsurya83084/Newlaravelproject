@@ -17,51 +17,37 @@
         <span class="block sm:inline">Login   successfull.</span>
 @endif
 
-    @if(session('fail'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+   
+  
+<div class="flex flex-col items-center justify-center min-h-screen ">
+<!-- show error red if invalid creadential -->
+@if(session('fail'))
+        <div class=" text-center bg-red-100 border mt-10 lg:mt-40 mx-10 lg:mx-80 border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
             <strong class="font-bold">Error!</strong>
             <span class="block sm:inline">{{ session('fail') }}</span>
         </div>
-    @endif
-  
-<div class="flex flex-col items-center justify-center min-h-screen ">
-  <div class="mb-4">
+    @endif  
+
+
+<div class="mb-4">
     <img src="\assets\images\logo.png" alt="Logo" />
   </div>
   <div>
-    
+ 
   </div>
 
 
 
 
 <!-- ----------- set locally ------------->
-@if(session('success'))
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        <strong class="font-bold">Success!</strong>
-        <span class="block sm:inline">{{ session('success') }}</span>
-    </div>
-@if(session('token'))
-        <script>
-            // Store the token in local storage
-            localStorage.setItem('auth_token', "{{ session('token') }}");
-            console.log('Token stored in local storage:', "{{ session('token') }}");
-        </script>
-    @endif
-@endif
 
-@if(session('fail'))
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-        <strong class="font-bold">Error!</strong>
-        <span class="block sm:inline">{{ session('fail') }}</span>
-    </div>
-@endif
+
 <!-- Login form -->
 <form 
     action="{{ route('loginpost') }}" 
     method="post" 
     id="loginForm" 
-    class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6"
+    class="bg-white  p-8 rounded-lg shadow-lg  sm:w-full max-w-md space-y-6"
 >
     @csrf
     <h1 class="text-center text-3xl font-bold text-gray-600">Login</h1>
@@ -100,14 +86,7 @@
 
 <script>
 
-// Use the session data as needed in your frontend application
 
-    // Check if the token is stored in localStorage
-    let loginToken = localStorage.getItem('login_message');
-    if (loginToken) {
-        console.log('Login token:', loginToken);
-        // You can now use this token for API requests or session management
-    }
 </script>
 </body>
 </html>

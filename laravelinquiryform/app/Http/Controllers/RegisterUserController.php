@@ -71,4 +71,20 @@ class RegisterUserController extends Controller
     {
         return view('successSubmitForm'); // You can adjust this based on your view
     }
+
+
+    public function getUserInuiry()
+    {
+        // $registerUser = new RegisterUser();
+        // $users = $registerUser->get_all_data();
+
+        $users = RegisterUser::all(); // Use the Eloquent query to get all user records
+
+        // Pass the data to the view
+        return view('admin', ['users' => $users]);
+        
+        // echo "<pre>";
+        // print_r($users);
+        // return view('admin', compact('data',$users));
+    }
 }

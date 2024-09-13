@@ -15,27 +15,25 @@
     </div>
     <!-- New Password create form -->
     @if(session()->has("success"))
-  <div class="alert alert-success">
-    {{ session()->get("success") }}
-  </div>
-  @endif
-  @if(session()->has("error"))
-  <div class="alert alert-success">
-    {{ session()->get("error") }}
-  </div>
-  @endif
+    <div class="alert alert-success">
+      {{ session()->get("success") }}
+    </div>
+    @endif
+    @if(session()->has("error"))
+    <div class="alert alert-success">
+      {{ session()->get("error") }}
+    </div>
+    @endif
     <form id="createUserForm"
-      action="{{route('createNewpassword.post')}}"
-      method="post"
-
-
-      class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
-     @csrf
+      action="{{route('createNewpasswordPost')}}"
+      method="post" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6">
+      @csrf
       <h1 class="text-center text-3xl font-bold text-gray-600">Create User</h1>
 
       <div class="flex flex-col">
         <label class="text-gray-700 font-medium">Email</label>
         <input
+
           id="email"
           name="email"
           type="email"
@@ -48,7 +46,7 @@
         <label class="text-gray-700 font-medium">New Password</label>
         <input
           id="newPassword"
-          name="Newpassword"
+          name="newPassword"
           type="password"
           placeholder="New Password"
           class="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -68,11 +66,9 @@
 
       <div id="errorMessage" class="text-red-500 text-sm hidden">Passwords do not match!</div>
 
-      <button
-        type="submit"
-        class="w-full py-2 mt-4 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        Submit
-      </button>
+
+
+      <input type="submit" class="w-full py-2 mt-4 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </form>
 
   </div>
@@ -94,15 +90,6 @@
       if (newPassword !== confirmPassword) {
         errorMessage.classList.remove('hidden'); // Show error message
         errorMessage.textContent = 'Passwords do not match!';
-      } else {
-        errorMessage.classList.add('hidden'); // Hide error message
-        alert('update success')
-        // Log values to the console
-        console.log('Email:', email);
-        console.log('New Password:', newPassword);
-        console.log('Confirm Password:', confirmPassword);
-
-        // Here you can proceed with form submission logic, like sending the data to the backend.
       }
     });
   </script>
