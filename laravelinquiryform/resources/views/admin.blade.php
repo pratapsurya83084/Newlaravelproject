@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BISJHINTUS SERVICE INQUIRY FORM</title>
     <script src="https://cdn.tailwindcss.com"></script>
+  <!-- favicon -->
+  <link rel="icon" href="{{ asset('\favicon_bisjhintus.png') }}" type="image/x-icon">
     <!-- library add to download pdf -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -247,6 +249,7 @@
         const updatePasswordLink = document.getElementById("updatePasswordLink");
         const updatePasswordModal = document.getElementById("updatePasswordModal");
         const closeModalButton = document.getElementById("closeModal");
+// console.log(submitButton.value);
 
         // Show modal when "Update Password" button is clicked
         updatePasswordLink.addEventListener("click", () => {
@@ -259,32 +262,7 @@
             updatePasswordModal.classList.add("hidden");
         });
 
-        // Add event listener to the submit button
-        submitButton.addEventListener("click", (e) => {
-            e.preventDefault(); // Prevent form submission
-
-            // Get values
-            const email = emailInput.value.trim();
-            const currentPassword = currentPasswordInput.value.trim();
-            const newPassword = newPasswordInput.value.trim();
-
-            // Validate fields
-            if (!email || !currentPassword || !newPassword) {
-                // Show error message
-                errorMessage.classList.remove("hidden");
-                errorMessage.textContent = "All fields are required!";
-                return;
-            }
-
-            // Hide error message if validation passes
-            errorMessage.classList.add("hidden");
-
-            // Print values in the console
-            console.log("Email:", email);
-            console.log("Current Password:", currentPassword);
-            console.log("New Password:", newPassword);
-        });
-
+     
 
         // download excel Pdf of Inquiry    User
         document.getElementById('downloadButton').addEventListener('click', () => {

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+ <!-- favicon -->
+ <link rel="icon" href="{{ asset('\favicon_bisjhintus.png') }}" type="image/x-icon">
     <title>BISJHINTUS SERVICE INQUIRY FORM</title>
 
 </head>
