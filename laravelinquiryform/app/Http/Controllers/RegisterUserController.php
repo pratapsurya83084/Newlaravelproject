@@ -7,39 +7,8 @@ use Illuminate\Http\Request;
 
 class RegisterUserController extends Controller
 {
-    //make register method to store in table
 
-    // public function register(Request $request)
-    // {
-    //     $filds = $request->validate([
-    //         'username' => 'required|max:255',
-    //         'email' => 'required|max:255',
-    //         'courseName' => 'required|max:255',
-    //         'country' => 'required|max:255',
-    //         'job_role' => 'required|max:255',
-    //         'course_Enroll_Date' => 'required|max:255',
-    //         'phone_Number' => 'required|max:255',
-    //         'service' => 'required|max:255',
-    //     ]);
-
-    //     RegisterUser::create([
-    //         'username' =>$request->username,
-    //         'email' => $request->email,
-    //         'courseName' => $request->courseName,
-    //         'country' => $request->country,
-    //         'job_role' => $request->job_role,
-    //         'course_Enroll_Date' => $request->course_Enroll_Date,
-    //         'phone_Number' => $request->phone_Number,
-    //         'service' => $request->service
-    //     ]);
-
-    //     return redirect('/successSubmitForm')->with('status','User Registerd successfully');
-
-
-    // }
-
-
-    // show success page after inquiry form submit
+    // inquiryUser form method
     public function inquiryPost(Request $request)
     {
         // Validate form fields
@@ -82,9 +51,25 @@ class RegisterUserController extends Controller
 
         // Pass the data to the view
         return view('admin', ['users' => $users]);
-        
+
         // echo "<pre>";
         // print_r($users);
         // return view('admin', compact('data',$users));
+    }
+
+
+    // delete user from Admin  UserList
+    public function deleteUser($id)
+    {
+
+        $deletedUser = RegisterUser::find($id);
+
+        if ($deletedUser) {
+            $deletedUser->delete();
+
+            return redirect('/admin')->with("delete", "User Deleted SuccessFully");
+        } else {
+            return redirect('/admin')->with("NotDelete", "User Not DELETE");
+        }
     }
 }

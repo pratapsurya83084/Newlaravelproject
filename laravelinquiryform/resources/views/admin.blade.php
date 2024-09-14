@@ -7,6 +7,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BISJHINTUS SERVICE INQUIRY FORM</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- library add to download pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 </head>
 
 <body class="font-sans bg-gray-100 select-none">
@@ -58,25 +63,27 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                             <div class="bg-white shadow rounded-lg p-4">
                                 <h3 class="text-lg font-semibold mb-2">Total Users</h3>
-                                <p class="text-2xl" id="totalUsersCount">123</p> <!-- Static value, will be updated dynamically -->
+                                <p class="text-2xl" id="totalUsersCount">{{ count($users) }}</p> <!-- Static value, will be updated dynamically -->
                             </div>
                         </div>
                     </div>
 
-                    @if ($users->isEmpty())
+                    <!-- @if ($users->isEmpty())
                     <p>No users found.</p>
                     @else
                     {{ $users[0]['courseName']}}
-                    @endif
-                    <!-- Users View -->
+                    @endif -->
+                    <!--All Users View  Table-->
                     <div id="usersView" class="hidden">
                         <div class="bg-white shadow rounded-lg p-4">
                             <div class="flex justify-between mb-4">
                                 <h3 class="text-lg font-semibold">Users List</h3>
-                                <button class="bg-green-600 py-2 px-4 rounded text-white font-bold">Download Pdf</button>
+                                <!-- Download Pdf Button -->
+                                <button id="downloadButton" class="bg-green-600 py-2 px-4 rounded text-white font-bold">Download Pdf</button>
                             </div>
                             <!-- user show in table body -->
                             <div class="overflow-x-auto">
+
                                 <table class="min-w-full bg-white shadow-md rounded-lg">
                                     <thead>
                                         <tr>
@@ -92,12 +99,13 @@
                                             <th class="px-6 py-3 border-b-2 border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 tracking-wider">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
 
+
+                                    <tbody>
                                         @foreach ($users as $user)
                                         <tr class="hover:bg-gray-100">
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['id']}}</td>
-                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['username	']}}</td>
+                                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['username']}}</td>
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['email']}}</td>
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['course_Enroll_Date']}}</td>
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['courseName']}}</td>
@@ -106,7 +114,12 @@
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['country']}}</td>
                                             <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{$user['service']}}</td>
                                             <td class="text-center px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                                <button class="bg-red-500 p-1 rounded px-3 text-white">Delete</button>
+                                                <form action="{{ route('user.delete', $user['id']) }}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" id="showNotificationButton" class="bg-red-500 p-1 rounded px-3 text-white">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -118,15 +131,31 @@
 
                     <!-- Update Password View -->
                     <div id="updatePasswordView">
-
                         <form
                             action="{{ route('updateadminPassword')}}"
                             method="post">
                             @csrf
-                            <!-- Modal (Initially hidden) -->
-                            <div id="updatePasswordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-                                <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+                            <!--update Password Modal (Initially hidden) -->
+                            <div id="updatePasswordModal" class="fixed inset-0 flex  hidden bg-black bg-opacity-50  items-center justify-center ">
+                           
+                            <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full">
+
+
                                     <h2 class="text-2xl font-bold mb-4 text-center">Update Password</h2>
+
+                                    @if(session('failPassword'))
+                                    <div class="text-red-500" >
+                                        {{ session('failPassword') }}
+                                        
+                                    </div>
+                                    @endif
+
+                                    @if(session('successSubmit'))
+                                    <div class="text-green-500">
+                                        {{ session('successSubmit') }}
+                                    </div>
+                                    @endif
+
                                     <!-- email -->
                                     <div class="flex flex-col mb-4">
                                         <label class="text-gray-700">Email</label>
@@ -150,12 +179,11 @@
                                     <div id="errorMessage" class="text-red-500 hidden mb-4">All fields are required!</div>
                                     <div class="flex justify-end">
                                         <button id="closeModal" class="bg-gray-500 text-white px-4 py-2 rounded-lg ml-2">Cancel</button>
-                                        <input type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">
+                                        <input type="submit" id="" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">
                                     </div>
                                 </div>
 
                             </div>
-
                         </form>
 
                     </div>
@@ -202,6 +230,7 @@
         document.getElementById('updatePasswordLink').addEventListener('click', () => {
             // document.getElementById('dashboardView').classList.add('hidden');
             // document.getElementById('usersView').classList.add('hidden');
+
             document.getElementById('updatePasswordView').classList.remove('hidden');
             document.getElementById('updatePasswordModal').classList.remove('hidden');
         });
@@ -223,6 +252,7 @@
         updatePasswordLink.addEventListener("click", () => {
             updatePasswordModal.classList.remove("hidden");
         });
+
 
         // Close modal when "Cancel" button is clicked
         closeModalButton.addEventListener("click", () => {
@@ -254,6 +284,58 @@
             console.log("Current Password:", currentPassword);
             console.log("New Password:", newPassword);
         });
+
+
+        // download excel Pdf of Inquiry    User
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const rows = Array.from(document.querySelectorAll('tbody tr')).map(row => {
+                const cells = Array.from(row.querySelectorAll('td'));
+                return {
+                    id: cells[0].textContent.trim(),
+                    username: cells[1].textContent.trim(),
+                    email: cells[2].textContent.trim(),
+                    courseEnrollDate: cells[3].textContent.trim(),
+                    courseName: cells[4].textContent.trim(),
+                    phoneNumber: cells[5].textContent.trim(),
+                    jobRole: cells[6].textContent.trim(),
+                    country: cells[7].textContent.trim(),
+                    service: cells[8].textContent.trim(),
+                };
+            });
+
+            // Generate Excel file
+            const worksheet = XLSX.utils.json_to_sheet(rows);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Users");
+
+            const excelBuffer = XLSX.write(workbook, {
+                bookType: "xlsx",
+                type: "array"
+            });
+            const excelBlob = new Blob([excelBuffer], {
+                type: "application/octet-stream"
+            });
+            saveAs(excelBlob, "users.xlsx");
+
+            // Generate PDF file
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("User Data", 10, 10);
+
+            rows.forEach((item, index) => {
+                doc.text(
+                    `${index + 1}. ${item.username} | ${item.email} | ${item.courseEnrollDate} | ${item.courseName} | ${item.phoneNumber} | ${item.jobRole} | ${item.country} | ${item.service}`,
+                    10,
+                    20 + index * 10
+                );
+            });
+
+            doc.save("users.pdf");
+        });
+
+        // after delete user from inquiry list then show success message user is deleted
     </script>
 </body>
 

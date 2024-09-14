@@ -46,7 +46,7 @@
         <label class="text-gray-700 font-medium">New Password</label>
         <input
           id="newPassword"
-          name="newPassword"
+          name="currentPassword"
           type="password"
           placeholder="New Password"
           class="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -57,7 +57,7 @@
         <label class="text-gray-700 font-medium">Confirm Password</label>
         <input
           id="confirmPassword"
-          name="confirmPassword"
+          name="newPassword"
           type="password"
           placeholder="Confirm Password"
           class="mt-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -65,8 +65,6 @@
       </div>
 
       <div id="errorMessage" class="text-red-500 text-sm hidden">Passwords do not match!</div>
-
-
 
       <input type="submit" class="w-full py-2 mt-4 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
     </form>

@@ -50,3 +50,7 @@ Route::get('logout',[AdminloginController::class,'logout'])->name('logoutadmin')
 Route::post('/updatePassword',[AdminloginController::class,'UpdatePassword'])->name('updateadminPassword');
 
 Route::get('/getUserInuiry',[RegisterUserController::class,'getUserInuiry'])->name('getAllUser');
+
+
+// delete user from admin User table list
+Route::delete('/deleteUser/{id}',[RegisterUserController::class,'deleteUser'])->name('user.delete');
