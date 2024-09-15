@@ -36,7 +36,7 @@ Route::get('/admin',[AdminloginController::class,'adminshow'])->name('admin');
 
 // create new adminpass route if not remember pass
 Route::get('/admin/updatepassword',[AdminloginController::class,'createNewpassword']);
-Route::post('/updatepassword',[AdminloginController::class,'createNewpasswordpost'])->name('createNewpasswordPost');   //action="{{route('login.post')}}"  name use in loginadmin.blade.php file action.
+Route::post('/admin/updatepassword',[AdminloginController::class,'createNewpasswordpost'])->name('createNewpasswordPost');   //action="{{route('login.post')}}"  name use in loginadmin.blade.php file action.
 
 
 

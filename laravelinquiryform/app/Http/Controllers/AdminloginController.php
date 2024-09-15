@@ -34,7 +34,7 @@ class AdminloginController extends Controller
             $request->session()->put('Adlogin', false);
             return redirect('/login')->with('fail', 'Invalid email or password');
         } else {
-        //    email basis session start and use for login
+            //    email basis session start and use for login
             $request->session()->put('user', $user->email);
             $request->session()->put('Adlogin', true);
 
@@ -75,7 +75,7 @@ class AdminloginController extends Controller
     // show updatepasswordnew form register admin
     function createNewpassword(Request $request)
     {
-        return view('auth.createNewPassword');
+        return view('createNewPassword');
     }
 
     //update password by post req (registerpost)
@@ -87,12 +87,12 @@ class AdminloginController extends Controller
             'newPassword' => 'required'
         ]);
 
-        
+
         $user = Adminlogin::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->currentPassword, $user->password)) {
-           
-    
+
+
             return redirect('/admin')->with('failPassword', 'Something went wrong! Invalid credentials.');
         }
 
@@ -101,41 +101,33 @@ class AdminloginController extends Controller
 
         // Redirect to the login page with a success message
         return redirect('/admin')->with('successSubmit', 'Password updated successfully.');
-    
     }
 
 
 
 
     //update password by post req (registerpost)
-function createNewpasswordpost(Request $request)
-{
-    $userdetail = $request->validate([
-        'email' => 'required|email',
-        'currentPassword' => 'required',
-        'newPassword' => 'required'
-    ]);
-    
- 
-    print_r($userdetail);
-    // return view('/admin/updatepassword')->with('createNewPass',"success");
-    // $user = Adminlogin::where('email', $request->email)->first();
+    function createNewpasswordpost(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email',
+            'newPassword' => 'required',
+            'password' => 'required'
+        ]);
 
-    // if (!$user || !Hash::check($request->currentPassword, $user->password)) {
-    //     return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! Invalid credentials.');
-    // }
+        if ($data['newPassword'] === $data['password']) {
+            // echo "<pre>";
+            // print_r($data);
+            $chk = Adminlogin::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
 
-    // $user->password = Hash::make($request->newPassword);
-    // $user->save();
+            if ($chk) {
+                return redirect('/login')->with('successPassword', 'Password updated successfully.');
+            } else {
+                return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! Password not updated.');
+            }
+        } else {
+            return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! Invalid credentials.');
+        }
 
-    // // Redirect to the login page with a success message
-    // return redirect('/login')->with('successSubmit', 'Password updated successfully.');
+    }
 }
-
-
-
-}
-
-
-
-
