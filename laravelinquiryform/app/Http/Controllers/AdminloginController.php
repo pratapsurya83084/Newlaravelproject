@@ -93,7 +93,7 @@ class AdminloginController extends Controller
         if (!$user || !Hash::check($request->currentPassword, $user->password)) {
 
 
-            return redirect('/admin')->with('failPassword', 'Something went wrong! Invalid credentials.');
+            return redirect('/admin')->with('failPassword', 'Something went wrong! failed Password Update.');
         }
 
         $user->password = Hash::make($request->newPassword);
@@ -123,10 +123,10 @@ class AdminloginController extends Controller
             if ($chk) {
                 return redirect('/login')->with('successPassword', 'Password updated successfully.');
             } else {
-                return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! Password not updated.');
+                return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! email incorrect');
             }
         } else {
-            return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! Invalid credentials.');
+            return redirect('/admin/updatepassword')->with('failPassword', 'Something went wrong! password incorrect .');
         }
 
     }
